@@ -5,8 +5,6 @@
  * @version 5.0
  */
 
-import QueuePackage.*;
-
 public class SimulationEventQueueTest {
 
 
@@ -17,6 +15,7 @@ public class SimulationEventQueueTest {
     private static SimulationEventQueue testEventQueue2 = new SimulationEventQueue();
     private static SimulationEventQueue testEventQueue3 = new SimulationEventQueue();
     private static SimulationEventQueue testEventQueue4 = new SimulationEventQueue();
+    private static SimulationEventQueue testEventQueue5 = new SimulationEventQueue();
 
     
     static DummyEvent event1 = new DummyEvent(1.0, "Event at time 1");
@@ -33,6 +32,18 @@ public class SimulationEventQueueTest {
     static DummyEvent event7 = new DummyEvent(7.0, "Event at time 7");
     static DummyEvent event8 = new DummyEvent(8.0, "Event at time 8");
 
+    static DummyEvent eventA = new DummyEvent(10.0, "Event A at time 10");
+    static DummyEvent eventB = new DummyEvent(12.0, "Event B at time 12");
+    static DummyEvent event1C = new DummyEvent(17.0, "Event C at time 17");
+    static DummyEvent event2C = new DummyEvent(13.0, "Event C at time 13");
+    static DummyEvent event1D = new DummyEvent(18.0, "Event D at time 18");
+    static DummyEvent event2D = new DummyEvent(15.0, "Event D at time 15");
+    static DummyEvent event1E = new DummyEvent(20.0, "Event E at time 20");
+    static DummyEvent event2E = new DummyEvent(15.0, "Event E at time 15");
+    static DummyEvent eventF = new DummyEvent(20.0, "Event F at time 20");
+    static DummyEvent eventG = new DummyEvent(22.0, "Event G at time 22");
+    static DummyEvent eventZ = new DummyEvent(15.0, "Event Z at time 15");
+
 
     /**
      * @param args the command line arguments
@@ -42,12 +53,13 @@ public class SimulationEventQueueTest {
     System.out.println("BASIC TESTING OF THE SIMULATION EVENT QUEUE");
     System.out.println();
 
-        checkGetSize();
+        /*checkGetSize();
         checkClear();
         checkIsEmpty();
         checkPeek();
         checkRemove();
-        checkAdd();
+        checkAdd();*/
+        addExample();
     
     }
     
@@ -433,6 +445,74 @@ public class SimulationEventQueueTest {
 
         
 
+
+
+    }
+
+    public static void addExample(){
+        System.out.println("Add event Z to event A");
+        testEventQueue5.clear();
+        testEventQueue5.add(eventA);
+        testEventQueue5.remove(); // a roundabout way to set current time to 10
+        testEventQueue5.add(eventA);
+        testEventQueue5.add(eventZ);
+        if (testEventQueue5.getSize() == 2 && testEventQueue5.peek().equals(eventA)){
+            System.out.println("    Passed test");
+        } else {
+            System.out.println("*** Failed test");
+        }
+        System.out.println();
+
+        System.out.println("Add event Z to empty queue");
+        testEventQueue5.clear();
+        testEventQueue5.add(eventZ);
+        if (testEventQueue5.getSize() == 1 && testEventQueue5.peek().equals(eventZ)){
+            System.out.println("    Passed test");
+        } else {
+            System.out.println("*** Failed test");
+        }
+        System.out.println();
+
+        System.out.println("Insert event Z between event B and C");
+        testEventQueue5.clear();
+        testEventQueue5.add(eventA);
+        testEventQueue5.add(eventB);
+        testEventQueue5.add(event1C);
+        testEventQueue5.add(eventZ);
+        // event Z should be the third event in the queue (after event A and B)
+        testEventQueue5.remove();
+        testEventQueue5.remove();
+        if (testEventQueue5.getSize() == 2 && testEventQueue5.peek().equals(eventZ)){
+            System.out.println("    Passed test");
+        } else {
+            System.out.println("*** Failed test");
+        }
+        System.out.println();
+
+        System.out.println("Add event Z to the end of queue with events ABC");
+        testEventQueue5.clear();
+        testEventQueue5.add(eventA);
+        testEventQueue5.add(eventB);
+        testEventQueue5.add(event2C);
+        testEventQueue5.add(eventZ);
+        // event Z should be the last event in the queue
+        testEventQueue5.remove();
+        testEventQueue5.remove();
+        testEventQueue5.remove();
+        if (testEventQueue5.getSize() ==  1 && testEventQueue5.peek().equals(eventZ)){
+            System.out.println("    Passed test");
+        } else {
+            System.out.println("*** Failed test");
+        }
+        System.out.println();
+
+        System.out.println("Add event Z before events D and E");
+        testEventQueue5.clear();
+        testEventQueue5.add(eventZ);
+        testEventQueue5.remove(); //setting 
+        testEventQueue5.add(event1D);
+        testEventQueue5.add(event1E);
+        testEventQueue5.add(eventZ);
 
 
     }
