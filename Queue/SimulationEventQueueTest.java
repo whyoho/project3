@@ -1,3 +1,4 @@
+import QueuePackage.*;
 /**
  * This class performs tests on the SimulationEventQueue class.
  *
