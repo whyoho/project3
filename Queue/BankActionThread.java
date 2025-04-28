@@ -11,12 +11,9 @@ import QueuePackage.*;
  * @author Charles Hoot 
  * @version 5.0
  */
-
-    
     
 public class BankActionThread extends ActionThread
 {
-    
     
     /**
      * Constructor for objects of class ActionThread
@@ -31,7 +28,6 @@ public class BankActionThread extends ActionThread
         return "Bank Simulation (Skeleton)";
     }    
     
-
     // **************************************************************************
     // This is application specific code
     // **************************************************************************    
@@ -43,7 +39,6 @@ public class BankActionThread extends ActionThread
     private int maxForInterval = 20;
     private int stopSimulationAt = 1000;
    
-    
     // Displayed items
     private BankLine myLine;
     private Teller myTeller;
@@ -51,12 +46,10 @@ public class BankActionThread extends ActionThread
     private String lastEventReport;
     private Report myReport;
  
-
     // Not displayed, but still used in the simulation
     private SimulationEventQueue theEvents;
     private CustomerGenerator myCG;
     private Random sharedRandom;
-    
     
     public void init() 
     {
@@ -77,13 +70,38 @@ public class BankActionThread extends ActionThread
         
     }
         
-
     public void executeApplication()
     {
         //ADD CODE HERE TO RUN THE EVENT SIMULATION
-    }
-    
+        //repeatedly take events from event queue + process
+        while (nextEventAction != null && !nextEventAction.equals("No events to process")){
+            //figure this part ut
+            if (nextEventAction.equals("Generate the first customer.")){
+                myCG.GenerateCustomerEvent.process();
+            }
+            // after processing, get post action report
+            // * refer to SimulationEvent.java in QueuePackage
+            // * im gonna go eat lunch now.. ahah
+            lastEventReport = myReport.addServed();
+            System.out.println(nextEventAction);
+            theEvents.remove();
 
+            // if there is a next event, get the description and use it to set nextEventAction
+
+            SimulationEvent next = theEvents.peek();
+            if (next != null){
+                nextEventAction = next.getDescription();
+            } else {
+                break;
+            }
+
+            // update the time for the report
+
+            // last line in loop pauses animation
+            animationPause();
+        } // end of while loop
+    } // end of execute method
+    
     private static int DISPLAY_HEIGHT = 500;
     private static int DISPLAY_WIDTH = 500;
 

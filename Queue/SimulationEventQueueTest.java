@@ -54,13 +54,13 @@ public class SimulationEventQueueTest {
     System.out.println("BASIC TESTING OF THE SIMULATION EVENT QUEUE");
     System.out.println();
 
-        /*checkGetSize();
+        checkGetSize();
         checkClear();
         checkIsEmpty();
         checkPeek();
         checkRemove();
-        checkAdd();*/
-        addExample();
+        checkAdd();
+        //addExample();
     
     }
     
